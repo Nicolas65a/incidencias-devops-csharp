@@ -244,6 +244,7 @@ namespace GestionIncidencias.Formularios
             this.dgvConsulta.MultiSelect = false;
             this.dgvConsulta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvConsulta.AutoGenerateColumns = true;
+            this.dgvConsulta.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvConsulta_DataBindingComplete);
             this.dgvConsulta.RowHeadersVisible = false;
             this.dgvConsulta.BackgroundColor = System.Drawing.Color.White;
             this.dgvConsulta.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;

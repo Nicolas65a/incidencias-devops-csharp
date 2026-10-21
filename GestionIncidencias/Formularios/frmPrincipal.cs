@@ -308,5 +308,41 @@ namespace GestionIncidencias.Formularios
             dgvConsulta.DataSource = sql.ToList();
             lblResumen.Text = "Resumen de todas las incidencias por responsable.";
         }
+
+        private void dgvConsulta_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewColumn columna in dgvConsulta.Columns)
+            {
+                if (columna.DataPropertyName == "Descripcion")
+                {
+                    columna.Visible = false;
+                }
+                if (columna.DataPropertyName == "Id")
+                {
+                    columna.HeaderText = "Código";
+                    columna.FillWeight = 55;
+                    columna.DefaultCellStyle.Format = "D3";
+                }
+                if (columna.DataPropertyName == "Titulo")
+                {
+                    columna.HeaderText = "Título";
+                    columna.FillWeight = 180;
+                }
+                if (columna.DataPropertyName == "FechaRegistro")
+                {
+                    columna.HeaderText = "Registro";
+                    columna.DefaultCellStyle.Format = "dd/MM/yyyy";
+                }
+                if (columna.DataPropertyName == "FechaCierre")
+                {
+                    columna.HeaderText = "Cierre";
+                    columna.DefaultCellStyle.Format = "dd/MM/yyyy";
+                }
+                if (columna.DataPropertyName == "EnAtencion")
+                {
+                    columna.HeaderText = "En atención";
+                }
+            }
+        }
     }
 }
