@@ -64,7 +64,9 @@ namespace Pruebas
             Comprobar("No volver a resolver", op.Resolver(cierre.AddDays(1)) != "" && op.FechaCierre == cierre);
             Comprobar("No atender resuelta", op.IniciarAtencion() != "" && op.Estado == "Resuelta");
             Comprobar("Reabrir una resuelta", op.Reabrir() == "" && op.Estado == "Pendiente" && !op.FechaCierre.HasValue);
+            op = Crear();
             Comprobar("No reabrir pendiente", op.Reabrir() != "" && op.Estado == "Pendiente");
+            op = Crear();
             op.IniciarAtencion();
             Comprobar("No reabrir en atención", op.Reabrir() != "" && op.Estado == "En atención");
             op = Crear();
@@ -142,3 +144,4 @@ namespace Pruebas
         }
     }
 }
+
