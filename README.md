@@ -31,3 +31,7 @@ Estos archivos Markdown documentan el flujo exigido por el taller. El informe y 
 
 ## Automatización
 El workflow Compilar probar y entregar valida cada push y pull request. Una etiqueta v* publica una release privada con el paquete previamente validado. Un artefacto de Actions es una descarga temporal y una release es una versión distribuible.
+
+También se puede distribuir desde Actions > Compilar probar y entregar > Run workflow, usando main e indicando una versión nueva como v1.0.0. Si se deja la versión vacía, solo se compila, se prueba y se prepara el artefacto.
+
+Para trabajar con el historial remoto, clonar el repositorio privado desde GitHub. La carpeta de entrega contiene el código fuente, mientras GitHub conserva los commits, las ramas y los pull requests.
