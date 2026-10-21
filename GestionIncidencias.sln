@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionIncidencias", "GestionIncidencias\GestionIncidencias.csproj", "{4878E1A9-947A-4CB2-98C9-46100A09D0AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pruebas", "Pruebas\Pruebas.csproj", "{F6C328EF-A317-48D4-A2EE-3A372C1EB6C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4878E1A9-947A-4CB2-98C9-46100A09D0AA}.Debug|Any CPU.ActiveCfg = Debug|AnyCPU
+		{4878E1A9-947A-4CB2-98C9-46100A09D0AA}.Debug|Any CPU.Build.0 = Debug|AnyCPU
+		{4878E1A9-947A-4CB2-98C9-46100A09D0AA}.Release|Any CPU.ActiveCfg = Release|AnyCPU
+		{4878E1A9-947A-4CB2-98C9-46100A09D0AA}.Release|Any CPU.Build.0 = Release|AnyCPU
+		{F6C328EF-A317-48D4-A2EE-3A372C1EB6C9}.Debug|Any CPU.ActiveCfg = Debug|AnyCPU
+		{F6C328EF-A317-48D4-A2EE-3A372C1EB6C9}.Debug|Any CPU.Build.0 = Debug|AnyCPU
+		{F6C328EF-A317-48D4-A2EE-3A372C1EB6C9}.Release|Any CPU.ActiveCfg = Release|AnyCPU
+		{F6C328EF-A317-48D4-A2EE-3A372C1EB6C9}.Release|Any CPU.Build.0 = Release|AnyCPU
+	EndGlobalSection
+EndGlobal

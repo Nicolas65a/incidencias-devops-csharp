@@ -1,0 +1,72 @@
+name: Compilar probar y entregar
+
+on:
+  push:
+    branches: [main, 'feature/**']
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    name: Compilacion y pruebas
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Obtener codigo
+        uses: actions/checkout@v4
+      - name: Preparar MSBuild
+        uses: microsoft/setup-msbuild@v3
+      - name: Compilar solucion
+        run: msbuild GestionIncidencias.sln /t:Rebuild /p:Configuration=Release /p:UseSharedCompilation=false /m:1 /nr:false /warnaserror /v:minimal
+      - name: Ejecutar pruebas
+        shell: pwsh
+        run: |
+          & .\Pruebas\bin\Release\Pruebas.exe | Tee-Object -FilePath pruebas.txt
+          if ($LASTEXITCODE -ne 0)
+          {
+            exit $LASTEXITCODE
+          }
+      - name: Preparar paquete
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path paquete -Force | Out-Null
+          Copy-Item -LiteralPath .\GestionIncidencias\bin\Release\GestionIncidencias.exe -Destination paquete
+          Copy-Item -LiteralPath pruebas.txt -Destination paquete
+          Compress-Archive -Path .\paquete\* -DestinationPath GestionIncidencias.zip
+      - name: Guardar entrega validada
+        uses: actions/upload-artifact@v7
+        with:
+          name: GestionIncidencias-${{ github.sha }}
+          path: GestionIncidencias.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  publicar:
+    name: Distribuir version etiquetada
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: validar
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Obtener codigo
+        uses: actions/checkout@v4
+      - name: Recuperar paquete validado
+        uses: actions/download-artifact@v4
+        with:
+          name: GestionIncidencias-${{ github.sha }}
+      - name: Publicar release privada
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: |
+          gh release create "$env:GITHUB_REF_NAME" GestionIncidencias.zip --repo "$env:GITHUB_REPOSITORY" --title "Gestion de incidencias $env:GITHUB_REF_NAME" --notes "Version compilada y probada por GitHub Actions. Requiere Windows y .NET Framework 4.7.2 o superior."
+          if ($LASTEXITCODE -ne 0)
+          {
+            exit $LASTEXITCODE
+          }

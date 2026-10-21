@@ -1,5 +1,7 @@
 # Gestión de incidencias en C#
 
-Proyecto Parcial I de Programación Avanzada. Demostración de especificaciones, control de versiones, pruebas y CI/CD con GitHub Actions.
+Abra GestionIncidencias.sln en Visual Studio con desarrollo de escritorio .NET y .NET Framework 4.7.2. El proyecto GestionIncidencias es la aplicación y Pruebas es una consola de comprobaciones.
 
-Aplicación Windows Forms con carpetas Entidades, Controlador y Formularios. El informe y la presentación acompañan la entrega académica.
+La documentación de requisitos está en specs/001-incidencias. El flujo automatizado está en .github/workflows/ci.yml.
+
+El informe y la presentación acompañan la entrega académica fuera de la carpeta del código.
