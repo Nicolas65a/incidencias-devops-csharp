@@ -125,6 +125,11 @@ namespace GestionIncidencias.Entidades
             return "";
         }
 
+        public string Reabrir()
+        {
+            return "La reapertura todavía no está implementada.";
+        }
+
         public string Resolver(DateTime fecha)
         {
             if (Estado != "En atención")
