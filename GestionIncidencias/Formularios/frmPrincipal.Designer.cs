@@ -15,6 +15,7 @@ namespace GestionIncidencias.Formularios
 
         private void InitializeComponent()
         {
+            this.btnReabrir = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblAyuda = new System.Windows.Forms.Label();
             this.tabPrincipal = new System.Windows.Forms.TabControl();
@@ -54,6 +55,12 @@ namespace GestionIncidencias.Formularios
             this.dgvConsulta = new System.Windows.Forms.DataGridView();
             this.lblResumen = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            this.btnReabrir.Location = new System.Drawing.Point(466, 487);
+            this.btnReabrir.Size = new System.Drawing.Size(184, 38);
+            this.btnReabrir.Name = "btnReabrir";
+            this.btnReabrir.Text = "Reabrir";
+            this.btnReabrir.Click += new System.EventHandler(this.btnReabrir_Click);
+            this.tabGestion.Controls.Add(this.btnReabrir);
             this.lblTitulo.Location = new System.Drawing.Point(26, 20);
             this.lblTitulo.Size = new System.Drawing.Size(1060, 35);
             this.lblTitulo.Name = "lblTitulo";
@@ -292,6 +299,7 @@ namespace GestionIncidencias.Formularios
         }
 
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Button btnReabrir;
         private System.Windows.Forms.Label lblAyuda;
         private System.Windows.Forms.TabControl tabPrincipal;
         private System.Windows.Forms.TabPage tabGestion;
