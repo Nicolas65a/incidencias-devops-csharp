@@ -37,6 +37,7 @@ namespace GestionIncidencias.Formularios
                 btnEliminar.Enabled = false;
                 btnAtender.Enabled = false;
                 btnResolver.Enabled = false;
+                btnReabrir.Enabled = false;
                 MessageBox.Show("No se pudo leer el archivo. Se bloqueó la edición para conservar sus datos. " + ex.Message, "Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             Listar();
@@ -205,6 +206,36 @@ namespace GestionIncidencias.Formularios
         private void btnResolver_Click(object sender, EventArgs e)
         {
             CambiarEstado(true);
+        }
+
+        private void btnReabrir_Click(object sender, EventArgs e)
+        {
+            int codigo = CodigoSeleccionado();
+            int pos = TListaIncidencia.Buscar(codigo);
+            if (pos == -1)
+            {
+                return;
+            }
+            Incidencia anterior = TListaIncidencia.getIncidencia(pos);
+            Incidencia op = new Incidencia(anterior.Id, anterior.Titulo, anterior.Descripcion, anterior.Responsable, anterior.Prioridad, anterior.FechaRegistro);
+            op.Estado = anterior.Estado;
+            op.FechaCierre = anterior.FechaCierre;
+            string mensaje = op.Reabrir();
+            if (mensaje != "")
+            {
+                MessageBox.Show(mensaje);
+                return;
+            }
+            List<Incidencia> datos = TListaIncidencia.listaIncidencias.ToList();
+            datos[pos] = op;
+            if (!GuardarDatos(datos))
+            {
+                return;
+            }
+            TListaIncidencia.Modificar(pos, op);
+            Listar();
+            Limpiar();
+            MessageBox.Show("Incidencia reabierta. Su estado es Pendiente.");
         }
 
         private void CambiarEstado(bool resolver)

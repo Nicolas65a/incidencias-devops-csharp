@@ -125,6 +125,17 @@ namespace GestionIncidencias.Entidades
             return "";
         }
 
+        public string Reabrir()
+        {
+            if (Estado != "Resuelta")
+            {
+                return "Solo se puede reabrir una incidencia resuelta.";
+            }
+            Estado = "Pendiente";
+            FechaCierre = null;
+            return "";
+        }
+
         public string Resolver(DateTime fecha)
         {
             if (Estado != "En atención")
