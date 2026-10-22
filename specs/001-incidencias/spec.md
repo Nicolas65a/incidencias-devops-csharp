@@ -31,7 +31,7 @@ Como coordinador necesito filtrar por estado y parte del nombre del responsable,
 - CA12 Si falla el guardado, la lista en memoria conserva sus datos anteriores.
 - CA13 Un archivo dañado bloquea la edición para evitar reemplazarlo con una lista vacía.
 - CA14 Todas las estructuras de control y eventos de botones usan bloques con llaves.
-- CA15 Un formulario reúne las pestañas Incidencias y Consultas. La edición no abre ventanas adicionales.
+- CA15 frmPrincipal reúne la tabla de Incidencias y las Consultas. Nuevo y Modificar abren frmAdmin, que permite guardar o cancelar los datos.
 - CA16 El pipeline compila, ejecuta pruebas y genera un paquete solo si todo termina correctamente.
 
 ## Trazabilidad

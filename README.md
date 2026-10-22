@@ -7,7 +7,7 @@ Demostración para Proyecto Parcial I de Programación Avanzada. Incluye una apl
 2. Tener instalada la carga Desarrollo de escritorio de .NET y el targeting pack .NET Framework 4.7.2.
 3. Establecer GestionIncidencias como proyecto de inicio y pulsar F5.
 
-La pestaña Incidencias reúne el registro, modificación, eliminación y cambios de estado. Consultas filtra registros y muestra el resumen por responsable. Los códigos son automáticos y se muestran como 001, 002, etc.
+frmPrincipal muestra la tabla y las acciones. Nuevo y Modificar abren frmAdmin para ingresar o editar los datos. Consultas filtra registros y muestra el resumen por responsable. Los códigos son automáticos y se muestran como 001, 002, etc.
 
 Los datos quedan en %LOCALAPPDATA%/GestionIncidencias/incidencias.xml. No se incluyen registros personales ni datos precargados. Es un prototipo local, sin usuarios simultáneos ni servidor.
 
