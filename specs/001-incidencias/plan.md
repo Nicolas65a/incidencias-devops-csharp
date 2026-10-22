@@ -4,7 +4,7 @@
 - Entidades/Incidencia.cs contiene atributos privados, constructor vacío, constructor con parámetros, propiedades y reglas del estado.
 - Controlador/TListaIncidencia.cs almacena la lista y realiza Agregar, Modificar, Eliminar, getIncidencia y Buscar.
 - Controlador/ArchivoIncidencia.cs lee y guarda XML con XmlSerializer.
-- Formularios/frmPrincipal.cs enlaza controles y acciones. Las consultas LINQ están en los eventos correspondientes.
+- Formularios/frmPrincipal.cs muestra la tabla y las acciones. Formularios/frmAdmin.cs recibe los datos de ingreso y modificación mediante CrearObjeto y setDatos. Las consultas LINQ están en los eventos correspondientes.
 - Pruebas/Program.cs ejecuta comprobaciones reproducibles y devuelve 1 si alguna falla.
 
 ## Persistencia

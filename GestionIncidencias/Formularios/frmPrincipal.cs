@@ -10,21 +10,18 @@ namespace GestionIncidencias.Formularios
 {
     public partial class frmPrincipal : Form
     {
-        private int codigoEdicion;
         private string rutaDatos;
         private bool archivoDisponible;
 
         public frmPrincipal()
         {
             InitializeComponent();
-            this.codigoEdicion = 0;
             this.rutaDatos = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GestionIncidencias", "incidencias.xml");
             this.archivoDisponible = true;
         }
 
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
-            cmbPrioridad.SelectedIndex = 1;
             cmbEstadoConsulta.SelectedIndex = 0;
             try
             {
@@ -33,7 +30,8 @@ namespace GestionIncidencias.Formularios
             catch (Exception ex)
             {
                 archivoDisponible = false;
-                btnGuardar.Enabled = false;
+                btnNuevo.Enabled = false;
+                btnModificar.Enabled = false;
                 btnEliminar.Enabled = false;
                 btnAtender.Enabled = false;
                 btnResolver.Enabled = false;
@@ -51,18 +49,6 @@ namespace GestionIncidencias.Formularios
             lblCantidad.Text = "Incidencias registradas: " + TListaIncidencia.listaIncidencias.Count;
             dgvConsulta.DataSource = null;
             lblResumen.Text = "Seleccione los filtros y pulse Consultar.";
-        }
-
-        private void Limpiar()
-        {
-            codigoEdicion = 0;
-            txtCodigo.Text = "Automático";
-            txtTitulo.Clear();
-            txtDescripcion.Clear();
-            txtResponsable.Clear();
-            cmbPrioridad.SelectedIndex = 1;
-            lblEdicion.Text = "Nueva incidencia";
-            txtTitulo.Focus();
         }
 
         private int CodigoSeleccionado()
@@ -96,8 +82,22 @@ namespace GestionIncidencias.Formularios
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            Limpiar();
-            dgvIncidencias.ClearSelection();
+            int codigo = 1;
+            foreach (Incidencia actual in TListaIncidencia.listaIncidencias)
+            {
+                if (actual.Id >= codigo)
+                {
+                    codigo = actual.Id + 1;
+                }
+            }
+            using (frmAdmin frm = new frmAdmin())
+            {
+                frm.setCodigo(codigo);
+                if (frm.ShowDialog(this) == DialogResult.OK)
+                {
+                    GuardarIncidencia(frm.CrearObjeto());
+                }
+            }
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -108,46 +108,19 @@ namespace GestionIncidencias.Formularios
             {
                 return;
             }
-            Incidencia op = TListaIncidencia.getIncidencia(pos);
-            codigoEdicion = op.Id;
-            txtCodigo.Text = op.Id.ToString("D3");
-            txtTitulo.Text = op.Titulo;
-            txtDescripcion.Text = op.Descripcion;
-            txtResponsable.Text = op.Responsable;
-            cmbPrioridad.SelectedItem = op.Prioridad;
-            lblEdicion.Text = "Modificar incidencia " + txtCodigo.Text;
-            txtTitulo.Focus();
-        }
-
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            int codigo = codigoEdicion;
-            if (codigo == 0)
+            using (frmAdmin frm = new frmAdmin())
             {
-                codigo = 1;
-                foreach (Incidencia actual in TListaIncidencia.listaIncidencias)
+                frm.setDatos(TListaIncidencia.getIncidencia(pos));
+                if (frm.ShowDialog(this) == DialogResult.OK)
                 {
-                    if (actual.Id >= codigo)
-                    {
-                        codigo = actual.Id + 1;
-                    }
+                    GuardarIncidencia(frm.CrearObjeto());
                 }
             }
-            Incidencia op = new Incidencia(codigo, txtTitulo.Text.Trim(), txtDescripcion.Text.Trim(), txtResponsable.Text.Trim(), cmbPrioridad.Text, DateTime.Now);
-            int pos = TListaIncidencia.Buscar(codigoEdicion);
-            if (pos >= 0)
-            {
-                Incidencia anterior = TListaIncidencia.getIncidencia(pos);
-                op.Estado = anterior.Estado;
-                op.FechaRegistro = anterior.FechaRegistro;
-                op.FechaCierre = anterior.FechaCierre;
-            }
-            string mensaje = op.ValidarDatos();
-            if (mensaje != "")
-            {
-                MessageBox.Show(mensaje);
-                return;
-            }
+        }
+
+        private void GuardarIncidencia(Incidencia op)
+        {
+            int pos = TListaIncidencia.Buscar(op.Id);
             List<Incidencia> datos = TListaIncidencia.listaIncidencias.ToList();
             if (pos >= 0)
             {
@@ -170,7 +143,6 @@ namespace GestionIncidencias.Formularios
                 TListaIncidencia.Agregar(op);
             }
             Listar();
-            Limpiar();
             MessageBox.Show("Incidencia guardada correctamente.");
         }
 
@@ -195,7 +167,6 @@ namespace GestionIncidencias.Formularios
             }
             TListaIncidencia.Eliminar(pos);
             Listar();
-            Limpiar();
         }
 
         private void btnAtender_Click(object sender, EventArgs e)
@@ -234,7 +205,6 @@ namespace GestionIncidencias.Formularios
             }
             TListaIncidencia.Modificar(pos, op);
             Listar();
-            Limpiar();
             MessageBox.Show("Incidencia reabierta. Su estado es Pendiente.");
         }
 
@@ -272,7 +242,6 @@ namespace GestionIncidencias.Formularios
             }
             TListaIncidencia.Modificar(pos, op);
             Listar();
-            Limpiar();
             MessageBox.Show("Estado actualizado: " + op.Estado + ".");
         }
 
