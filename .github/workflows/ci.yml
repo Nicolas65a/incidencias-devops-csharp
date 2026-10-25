@@ -26,6 +26,14 @@ jobs:
         uses: actions/checkout@v4
       - name: Preparar MSBuild
         uses: microsoft/setup-msbuild@v3
+      - name: Verificar bloques de codigo CA14
+        shell: powershell
+        run: |
+          .\scripts\VerificarEstilo.ps1 | Tee-Object -FilePath verificacion-estilo.txt
+          if ($LASTEXITCODE -ne 0)
+          {
+            exit $LASTEXITCODE
+          }
       - name: Compilar solucion
         run: msbuild GestionIncidencias.sln /t:Rebuild /p:Configuration=Release /p:UseSharedCompilation=false /m:1 /nr:false /warnaserror /v:minimal
       - name: Ejecutar pruebas
@@ -42,6 +50,7 @@ jobs:
           New-Item -ItemType Directory -Path paquete -Force | Out-Null
           Copy-Item -LiteralPath .\GestionIncidencias\bin\Release\GestionIncidencias.exe -Destination paquete
           Copy-Item -LiteralPath pruebas.txt -Destination paquete
+          Copy-Item -LiteralPath verificacion-estilo.txt -Destination paquete
           Compress-Archive -Path .\paquete\* -DestinationPath GestionIncidencias.zip
       - name: Guardar entrega validada
         uses: actions/upload-artifact@v7
@@ -53,7 +62,7 @@ jobs:
 
   publicar:
     name: Distribuir version etiquetada
-    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.version != '')
+    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.version != '') || (github.event_name == 'push' && github.ref == 'refs/heads/main')
     needs: validar
     runs-on: windows-latest
     permissions:
@@ -74,13 +83,26 @@ jobs:
           $versionEntrega = $env:VERSION_ENTREGA
           if ($versionEntrega -eq '')
           {
-            $versionEntrega = $env:GITHUB_REF_NAME
+            if ($env:GITHUB_REF -eq 'refs/heads/main')
+            {
+              $versionEntrega = (Get-Content -LiteralPath VERSION -Raw).Trim()
+            }
+            else
+            {
+              $versionEntrega = $env:GITHUB_REF_NAME
+            }
           }
           if ($versionEntrega -notmatch '^v\d+\.\d+\.\d+$')
           {
             throw 'La version debe tener el formato v1.0.0.'
           }
-          gh release create "$versionEntrega" GestionIncidencias.zip --repo "$env:GITHUB_REPOSITORY" --target "$env:GITHUB_SHA" --title "Gestion de incidencias $versionEntrega" --notes "Version compilada y probada por GitHub Actions. Requiere Windows y .NET Framework 4.7.2 o superior."
+          gh release view "$versionEntrega" --repo "$env:GITHUB_REPOSITORY" --json tagName *> $null
+          if ($LASTEXITCODE -eq 0)
+          {
+            Write-Output "La version $versionEntrega ya esta publicada. Incremente VERSION para una entrega nueva."
+            exit 0
+          }
+          gh release create "$versionEntrega" GestionIncidencias.zip entrega/InformeProyectoParcialI.pdf entrega/PresentacionProyectoParcialI.pptx --repo "$env:GITHUB_REPOSITORY" --target "$env:GITHUB_SHA" --title "Gestion de incidencias $versionEntrega" --notes "Version compilada y probada por GitHub Actions. Requiere Windows y .NET Framework 4.7.2 o superior."
           if ($LASTEXITCODE -ne 0)
           {
             exit $LASTEXITCODE

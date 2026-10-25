@@ -30,6 +30,7 @@ namespace Pruebas
             }
         }
 
+        [STAThread]
         private static int Main()
         {
             aprobadas = 0;
@@ -135,6 +136,7 @@ namespace Pruebas
                     Directory.Delete(carpeta, true);
                 }
             }
+            PruebasInterfaz.Ejecutar(Comprobar);
             Console.WriteLine("Aprobadas: " + aprobadas + ". Fallidas: " + fallidas + ".");
             if (fallidas > 0)
             {

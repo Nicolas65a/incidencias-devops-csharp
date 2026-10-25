@@ -10,3 +10,13 @@
 - [ ] T08 Completar nombres y ensayar la exposición.
 
 T07 y T08 requieren participación real del grupo. Las marcas reflejan evidencias, no sustituyen la participación de dos estudiantes.
+
+## Ampliacion de verificacion SDD
+- [x] T09 Relacionar R01-R06, CA01-CA16, implementacion y evidencia.
+- [x] T10 Agregar comprobaciones de consultas y resumen desde los eventos reales.
+- [x] T11 Comprobar guardar, cancelar, modificar y confirmar eliminacion.
+- [x] T12 Verificar conservacion ante errores de guardado y bloqueo por carga danada.
+- [x] T13 Documentar las seis fases y la generacion con IA guiada por especificaciones.
+- [x] T14 Actualizar informe y presentacion junto con la entrega del proyecto.
+
+La validacion remota y la version distribuible se consultan en el PR del Issue #5 y en Actions.

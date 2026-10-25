@@ -17,3 +17,9 @@ Para este equipo de dos personas se escoge GitHub Flow con ramas cortas. Se busc
 
 ## Entrega
 Actions compila con MSBuild en Windows, ejecuta el programa de pruebas y conserva un ZIP como artefacto. Una etiqueta v* repite la validación y publica ese mismo paquete en una release privada. Esta es distribución de una aplicación de escritorio, no despliegue de un servicio web. Para una empresa se añadirían firma de ejecutables, instalador, respaldo y observabilidad.
+
+## Verificacion de esta ampliacion
+PruebasInterfaz.cs ejecuta los formularios en Windows y comprueba consultas, resumen, ingreso, modificacion, cancelacion y errores de archivo. Usa rutas aisladas, reflexion para alcanzar los eventos privados y respuestas a dialogos dentro del hilo de pruebas. Este soporte queda en Pruebas y no cambia la estructura del programa. scripts/VerificarEstilo.ps1 usa el analizador C# de Visual Studio para comprobar bloques con llaves.
+
+## Version distribuible
+VERSION identifica la entrega actual. Un push a main valida codigo y pruebas y publica esa version si todavia no existe. Para distribuir cambios posteriores se incrementa VERSION; las versiones existentes se conservan. Tambien se admite etiqueta v* o ejecucion manual con version explicita. La release incluye el ZIP del ejecutable, el informe PDF y la presentacion PPTX de entrega.

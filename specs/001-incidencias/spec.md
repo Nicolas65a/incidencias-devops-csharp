@@ -40,3 +40,5 @@ HU02: Incidencia.IniciarAtencion, Resolver y Reabrir, botones correspondientes.
 HU03: eventos btnConsultar_Click y btnResumen_Click con LINQ.
 CA12 y CA13: GuardarDatos y frmPrincipal_Load.
 CA16: .github/workflows/ci.yml.
+
+El origen de las necesidades esta en [requisitos.md](../../docs/requisitos.md). La relacion de todos los criterios con sus verificaciones esta en [trazabilidad.md](../../docs/trazabilidad.md). El recorrido de las seis fases esta en [sdd.md](../../docs/sdd.md).

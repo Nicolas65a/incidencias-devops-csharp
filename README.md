@@ -17,7 +17,10 @@ En Developer PowerShell de Visual Studio:
 msbuild GestionIncidencias.sln /t:Rebuild /p:Configuration=Release /warnaserror
 & .\Pruebas\bin\Release\Pruebas.exe
 ```
-La consola termina con código 0 si todas las comprobaciones pasan. Es un ejecutor sencillo propio, no un proyecto MSTest. Actions verifica su código de salida.
+La verificacion actual incluye 50 comprobaciones de logica, XML y formularios. La consola termina con código 0 si todas las comprobaciones pasan. Es un ejecutor sencillo propio, no un proyecto MSTest. Actions verifica su código de salida.
+
+## Recorrido SDD
+El ejercicio aplica la aclaracion del docente: definir el comportamiento y generar codigo con IA desde la especificacion. [Las seis fases](docs/sdd.md) enlazan requerimientos, especificacion, plan, implementacion, verificacion y evolucion. [La matriz](docs/trazabilidad.md) relaciona los 16 criterios con sus comprobaciones. La revision del segundo estudiante sigue pendiente en el Issue #3.
 
 ## Documentación del repositorio
 - specs/001-incidencias/spec.md: historias y criterios de aceptación.
@@ -35,3 +38,9 @@ El workflow Compilar probar y entregar valida cada push y pull request. Una etiq
 También se puede distribuir desde Actions > Compilar probar y entregar > Run workflow, usando main e indicando una versión nueva como v1.0.0. Si se deja la versión vacía, solo se compila, se prueba y se prepara el artefacto.
 
 Para trabajar con el historial remoto, clonar el repositorio privado desde GitHub. La carpeta de entrega contiene el código fuente, mientras GitHub conserva los commits, las ramas y los pull requests.
+
+## Informe y presentacion
+En GitHub, la carpeta entrega contiene el informe PDF y la presentacion PPTX de esta revision. La entrega local los mantiene en sus carpetas Informe y Presentacion, fuera del proyecto de Visual Studio.
+
+## Version distribuible
+VERSION identifica la entrega actual. Un push a main valida codigo y pruebas y publica esa version si todavia no existe. Para distribuir cambios posteriores se incrementa VERSION; las versiones existentes se conservan. Tambien se admite etiqueta v* o ejecucion manual con version explicita. La release incluye el ZIP del ejecutable, el informe PDF y la presentacion PPTX de entrega.
