@@ -41,3 +41,6 @@ Para trabajar con el historial remoto, clonar el repositorio privado desde GitHu
 
 ## Informe y presentacion
 En GitHub, la carpeta entrega contiene el informe PDF y la presentacion PPTX de esta revision. La entrega local los mantiene en sus carpetas Informe y Presentacion, fuera del proyecto de Visual Studio.
+
+## Version distribuible
+VERSION identifica la entrega actual. Un push a main valida codigo y pruebas y publica esa version si todavia no existe. Para distribuir cambios posteriores se incrementa VERSION; las versiones existentes se conservan. Tambien se admite etiqueta v* o ejecucion manual con version explicita. La release incluye el ZIP del ejecutable, el informe PDF y la presentacion PPTX de entrega.

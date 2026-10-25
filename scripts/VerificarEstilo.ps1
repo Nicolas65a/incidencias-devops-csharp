@@ -59,4 +59,3 @@ if ($errores.Count -gt 0)
     exit 1
 }
 Write-Output ('CA14: ' + $archivos.Count + ' archivos C# revisados. Estructuras de control y metodos con bloques correctos.')
-
