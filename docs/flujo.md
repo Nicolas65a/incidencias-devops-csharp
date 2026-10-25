@@ -37,3 +37,6 @@ Registrar una incidencia con responsable Ana y prioridad Alta. Intentar resolver
 
 ## Límites
 Las pruebas de consola no sustituyen las pruebas de interfaz ni garantizan ausencia de defectos. XML local no sirve para concurrencia corporativa. El despliegue de este taller distribuye un ejecutable privado y no instala automáticamente software en equipos de la empresa.
+
+## Evidencia de SDD
+El recorrido aplicado y sus limites estan en [sdd.md](sdd.md). Antes de solicitar una nueva funcion a la IA, acordar los criterios, revisar el plan y preparar casos de aceptacion. Despues relacionar el codigo generado con las pruebas y registrar su evolucion en un PR. La matriz [trazabilidad.md](trazabilidad.md) permite revisar este ejercicio.
