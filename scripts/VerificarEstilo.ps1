@@ -22,10 +22,12 @@ foreach ($nombre in @('System.Runtime.CompilerServices.Unsafe.dll', 'System.Memo
 [AppDomain]::CurrentDomain.add_AssemblyResolve({
     param($origen, $solicitud)
     $nombre = ([Reflection.AssemblyName]::new($solicitud.Name)).Name
-    $ruta = Join-Path $roslyn ($nombre + '.dll')
-    if (Test-Path -LiteralPath $ruta)
+    foreach ($ensamblado in [AppDomain]::CurrentDomain.GetAssemblies())
     {
-        return [Reflection.Assembly]::LoadFrom($ruta)
+        if ($ensamblado.GetName().Name -eq $nombre)
+        {
+            return $ensamblado
+        }
     }
     return $null
 })
@@ -57,3 +59,4 @@ if ($errores.Count -gt 0)
     exit 1
 }
 Write-Output ('CA14: ' + $archivos.Count + ' archivos C# revisados. Estructuras de control y metodos con bloques correctos.')
+
